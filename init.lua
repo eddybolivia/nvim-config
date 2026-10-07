@@ -35,3 +35,7 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+-- Al final de tu init.lua
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
