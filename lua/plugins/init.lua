@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = 'BufWritePre',
+    event = "BufWritePre",
     opts = require "configs.conform",
   },
 
@@ -13,6 +13,17 @@ return {
     end,
   },
 
+  -- Vista previa de Markdown en el navegador
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
+
+  --
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
 
