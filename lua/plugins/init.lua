@@ -23,6 +23,46 @@ return {
     end,
   },
 
+  -- Treesitter, rama main: reescritura compatible con Neovim 0.12
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      local lenguajes_instalados = {
+        "python",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "javascript",
+        "typescript",
+        "tsx",
+        "html",
+        "css",
+        "json",
+        "yaml",
+        "dockerfile",
+        "vim",
+        "vimdoc",
+        "query",
+      }
+      require("nvim-treesitter").install(lenguajes_instalados)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("treesitter_resaltado", { clear = true }),
+        callback = function(evento)
+          local lenguaje = vim.treesitter.language.get_lang(evento.match) or evento.match
+          if not vim.treesitter.language.add(lenguaje) then
+            return
+          end
+          vim.treesitter.start(evento.buf, lenguaje)
+        end,
+      })
+    end,
+  },
+
   --
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
