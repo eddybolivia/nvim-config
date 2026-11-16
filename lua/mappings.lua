@@ -34,16 +34,12 @@ end
 
 local function ejecutar_archivo_python()
   local es_archivo_python = vim.bo.filetype == "python" and vim.bo.buftype == ""
-  local es_buffer_especial = vim.bo.buftype ~= ""
 
   if es_archivo_python then
     vim.cmd "update"
     ultimo_archivo_python = vim.fn.expand "%:p"
     ventana_codigo = vim.api.nvim_get_current_win()
-  elseif es_buffer_especial and ultimo_archivo_python then
-    -- Estamos en el panel o en el árbol: se ejecuta el último archivo Python
   else
-    vim.notify("F5: abre un archivo .py para ejecutarlo", vim.log.levels.WARN)
     return
   end
 
@@ -95,4 +91,4 @@ local function ejecutar_archivo_python()
   vim.api.nvim_win_set_cursor(ventana_panel, { #lineas_salida, 0 })
 end
 
-map("n", "<F5>", ejecutar_archivo_python, { desc = "Python: ejecutar archivo actual" })
+map("n", "<C-CR>", ejecutar_archivo_python, { desc = "Python: ejecutar archivo actual" })
