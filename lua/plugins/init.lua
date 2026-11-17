@@ -76,4 +76,24 @@ return {
   -- 		},
   -- 	},
   -- },
+
+  -- GitHub Copilot: sugerencias automáticas apagadas por defecto
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      panel = { enabled = false },
+      suggestion = {
+        enabled = true,
+        auto_trigger = false,
+        keymap = {
+          accept = "<M-l>",
+          next = "<M-n>",
+          prev = "<M-p>",
+          dismiss = "<M-d>",
+        },
+      },
+    },
+  },
 }

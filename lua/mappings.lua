@@ -86,9 +86,13 @@ local function ejecutar_archivo_python()
     vim.wo[ventana_panel].number = false
     vim.wo[ventana_panel].relativenumber = false
   end
-
-  vim.api.nvim_set_current_win(ventana_panel)
-  vim.api.nvim_win_set_cursor(ventana_panel, { #lineas_salida, 0 })
+  vim.api.nvim_win_set_cursor(ventana_panel, { 1, 0 })
+  vim.api.nvim_set_current_win(ventana_codigo)
 end
 
-map("n", "<C-CR>", ejecutar_archivo_python, { desc = "Python: ejecutar archivo actual" })
+map({ "n", "i" }, "<C-CR>", ejecutar_archivo_python, { desc = "Python: ejecutar archivo actual" })
+
+-- Copilot: encender o apagar las sugerencias automáticas en el archivo actual
+map("n", "<leader>ai", function()
+  require("copilot.suggestion").toggle_auto_trigger()
+end, { desc = "Copilot: sugerencias automáticas" })
