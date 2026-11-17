@@ -95,4 +95,10 @@ map({ "n", "i" }, "<C-CR>", ejecutar_archivo_python, { desc = "Python: ejecutar 
 -- Copilot: encender o apagar las sugerencias automáticas en el archivo actual
 map("n", "<leader>ai", function()
   require("copilot.suggestion").toggle_auto_trigger()
+  vim.b.copilot_automatico = not vim.b.copilot_automatico
+  local estado = vim.b.copilot_automatico and "encendido" or "apagado"
+  vim.api.nvim_echo({ { "Copilot automático: " .. estado } }, false, {})
+  vim.defer_fn(function()
+    vim.api.nvim_echo({ { "" } }, false, {})
+  end, 2000)
 end, { desc = "Copilot: sugerencias automáticas" })
